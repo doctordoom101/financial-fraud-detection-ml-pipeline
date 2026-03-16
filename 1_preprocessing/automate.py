@@ -6,7 +6,7 @@ import joblib
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 RAW_DATA_PATH = os.path.join(BASE_DIR, '../data/raw/synthetic_fraud_dataset.csv')
-OUTPUT_DIR = os.path.join(BASE_DIR, '../data/processed')
+OUTPUT_DIR = os.path.join(BASE_DIR, './fraud_data_preprocessing')
 OUTPUT_FILE = os.path.join(OUTPUT_DIR, 'preprocessed_fraud_dataset.csv')
 
 def process_data():
