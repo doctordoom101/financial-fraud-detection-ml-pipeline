@@ -1,0 +1,46 @@
+name: Data Preprocessing Workflow
+
+# Trigger: Berjalan setiap kali ada push ke branch main 
+# atau ketika ada perubahan pada data raw atau script automate
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'data/raw/**'
+      - '1_preprocessing/automate.py'
+  workflow_dispatch: # Memungkinkan menjalankan manual dari tab Actions
+
+jobs:
+  preprocess:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pandas scikit-learn
+
+      - name: Run Preprocessing Script
+        run: |
+          # Menjalankan script automate
+          python 1_preprocessing/automate.py
+
+      - name: Commit and Push Clean Data
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          
+          # Cek apakah ada perubahan pada folder preprocessing
+          git add 1_preprocessing/fraud_data_preprocessing/
+          
+          # Hanya commit jika ada perubahan file
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Update processed dataset [skip ci]" && git push)
