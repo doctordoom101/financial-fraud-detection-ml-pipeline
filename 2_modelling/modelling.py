@@ -42,7 +42,7 @@ def train_model():
         'max_depth': [5, 10]
     }
     
-    with mlflow.start_run(run_name="RandomForest_Tuning_Advanced"):
+    with mlflow.start_run(run_name="RandomForest_Tuning"):
         print("Training dimulai...")
         rf = RandomForestClassifier(random_state=42)
         grid_search = GridSearchCV(estimator=rf, param_grid=param_grid, cv=3, scoring='f1_weighted')
