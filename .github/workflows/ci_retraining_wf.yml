@@ -42,8 +42,7 @@ jobs:
           MLFLOW_TRACKING_USERNAME: ${{ secrets.DAGSHUB_USERNAME }}
           MLFLOW_TRACKING_PASSWORD: ${{ secrets.DAGSHUB_TOKEN }}
         run: |
-          cd 3_workflow_ci/MLProject/
-          mlflow run . --env-manager=local --experiment-name "Fraud_Detection_Experiment"
+          mlflow run 3_workflow_ci/MLProject/ --env-manager=local --experiment-name "Fraud_Detection_Experiment"
 
       - name: Build Docker Image using MLflow
         run: |
