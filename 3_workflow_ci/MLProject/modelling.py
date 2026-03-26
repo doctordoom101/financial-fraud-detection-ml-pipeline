@@ -17,7 +17,7 @@ EXPERIMENT_NAME = "Fraud_Detection_Experiment"
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_PATH = os.path.join(BASE_DIR, "../1_preprocessing/fraud_data_preprocessing", "preprocessed_fraud_dataset.csv")
 
-def train_model():
+def train_model(n_estimators=100, max_depth=10):
     print("=== Memulai Proses Training Model ===")
     
     # 1. Setup DagsHub & MLflow
@@ -39,8 +39,8 @@ def train_model():
     # 3. Hyperparameter Tuning (Kriteria: Skilled/Advanced)
     # gunakan grid kecil agar cepat
     param_grid = {
-        'n_estimators': [50, 100],
-        'max_depth': [5, 10]
+        'n_estimators': [50, n_estimators],
+        'max_depth': [5, max_depth]
     }
     
     with mlflow.start_run(run_name="RandomForest_Tuning"):
